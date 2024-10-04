@@ -16,7 +16,7 @@ const Posts = () => {
     data: posts,
     isLoading,
     error,
-  } = useQuery<PostType[], FetchError>(["posts"], fetchPosts, {
+  } = useQuery<PostType[], FetchError>(["posts"], () => fetchPosts(), {
     retry: (failureCount, error) => {
       if (error.status === 401) {
         return false;

@@ -6,7 +6,7 @@ const fetchPosts: () => Promise<PostType[]> = cache(async () => {
     process.env.NODE_ENV === "production"
       ? process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL
       : process.env.NEXT_PUBLIC_NEXT_DEV_URL;
-  const res = await fetch(`${baseURL}/api/posts`);
+  const res = await fetch(`${baseURL}/api/posts`, { next: { revalidate: 60 } });
   return res.json();
 });
 

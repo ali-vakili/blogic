@@ -89,3 +89,26 @@ export default function PostPage({ params: { slug } }: PostPagePropType) {
 
   return <PostDetail id={id} />;
 }
+
+export async function generateStaticParams() {
+  const fetchPosts: () => Promise<PostType[]> = async () => {
+    const baseURL =
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL
+        : process.env.NEXT_PUBLIC_NEXT_DEV_URL;
+    const res = await fetch(`${baseURL}/api/posts?metadata=true`, {
+      next: { revalidate: 60 },
+    });
+    return res.json();
+  };
+
+  const posts = await fetchPosts();
+
+  if (posts.length < 1) {
+    return [];
+  }
+
+  return posts.map((post: PostType) => ({
+    slug: [`ps-${post.id}`, `${post.slug}`],
+  }));
+}

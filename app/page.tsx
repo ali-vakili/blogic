@@ -21,26 +21,6 @@ export default function Home() {
               مشاهده بلاگ ها
             </Link>
           </div>
-          {/* <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-fade-in"
-              >
-                <div className="h-48 bg-indigo-200 animate-pulse"></div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                    Feature {i}
-                  </h3>
-                  <p className="text-gray-600">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div> */}
         </div>
       </main>
     </div>

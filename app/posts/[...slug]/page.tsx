@@ -1,5 +1,4 @@
 import PostDetail from "@/components/PostDetail";
-// import postsJSON from "@/json/posts.json";
 import { fetchPost } from "@/lib/api/getPosts";
 import { extractIdFromSlug } from "@/utils";
 import { stripHtml } from "@/utils/stripHtml";
@@ -10,16 +9,6 @@ type PostPagePropType = {
     slug: string[];
   };
 };
-
-// const fetchAllPosts = async (): Promise<PostType[]> => {
-//   const res = await fetch(`http://localhost:3000/api/posts/generate`, {
-//     next: { revalidate: 3600 },
-//   });
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch posts");
-//   }
-//   return res.json();
-// };
 
 export const generateMetadata = async ({
   params: { slug },
@@ -100,11 +89,3 @@ export default function PostPage({ params: { slug } }: PostPagePropType) {
 
   return <PostDetail id={id} />;
 }
-
-// export async function generateStaticParams() {
-//   const posts = postsJSON;
-
-//   return posts.map((post) => ({
-//     slug: [`/ps-${post.id}`, `${post.slug}`],
-//   }));
-// }

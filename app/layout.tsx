@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     process.env.NODE_ENV === "production"
       ? new URL(
           process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL ||
-            "https://blogic.vercel.app"
+            "https://blogic-next.vercel.app"
         )
       : new URL(
           process.env.NEXT_PUBLIC_NEXT_DEV_URL || "http://localhost:3000"

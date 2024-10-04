@@ -38,10 +38,6 @@ export const decrypt = async (token: string | undefined) => {
   }
 };
 
-// export function generateToken() {
-//   return Math.random().toString(36).slice(2);
-// }
-
 export async function setAuthCookie(userId: string) {
   const expires = new Date(Date.now() + cookie.duration);
   const token = await encrypt({ userId, expires });
@@ -50,12 +46,6 @@ export async function setAuthCookie(userId: string) {
     expires,
   });
 }
-
-// export async function getAuthCookie() {
-//   const cookieValue = cookies().get("auth_token")?.value;
-//   const session = await decrypt(cookieValue);
-//   return !!session?.userId;
-// }
 
 export async function isAuthenticated(token?: string) {
   if (token) {

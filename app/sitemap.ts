@@ -5,7 +5,8 @@ import { MetadataRoute } from "next";
 export const revalidate = 0;
 
 const HOST =
-  process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL ?? "https://blogic.vercel.app";
+  process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL ??
+  "https://blogic-next.vercel.app";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const postPath = posts.map((post) => {
     return {

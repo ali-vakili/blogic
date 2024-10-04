@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import { setAuthCookie, removeAuthCookie, isAuthenticated } from "@/lib/auth";
 
 const user = {
-  id: "1",
-  username: "test",
-  password: "ali13802",
+  id: "12",
+  username: "myAccount",
+  password: "test1234",
 };
 
 export type FormState = {

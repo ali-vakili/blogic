@@ -1,5 +1,5 @@
 import PostDetail from "@/components/PostDetail";
-import { fetchPost } from "@/lib/api/getPosts";
+import { fetchSinglePost } from "@/lib/api/getPosts";
 import { extractIdFromSlug } from "@/utils";
 import { stripHtml } from "@/utils/stripHtml";
 import { PostType } from "@/types";
@@ -23,7 +23,7 @@ export const generateMetadata = async ({
       : new URL(
           process.env.NEXT_PUBLIC_NEXT_DEV_URL || "http://localhost:3000"
         );
-  const post: PostType = await fetchPost(id, true);
+  const post: PostType = await fetchSinglePost(id, true);
 
   if (!post) {
     return {
@@ -90,25 +90,14 @@ export default function PostPage({ params: { slug } }: PostPagePropType) {
   return <PostDetail id={id} />;
 }
 
-export async function generateStaticParams() {
-  const fetchPosts: () => Promise<PostType[]> = async () => {
-    const baseURL =
-      process.env.NODE_ENV === "production"
-        ? process.env.NEXT_PUBLIC_NEXT_PRODUCTION_URL
-        : process.env.NEXT_PUBLIC_NEXT_DEV_URL;
-    const res = await fetch(`${baseURL}/api/posts?metadata=true`, {
-      next: { revalidate: 60 },
-    });
-    return res.json();
-  };
+// export async function generateStaticParams() {
+//   const posts = await fetchPublicPosts();
 
-  const posts = await fetchPosts();
+//   if (posts.length < 1) {
+//     return [];
+//   }
 
-  if (posts.length < 1) {
-    return [];
-  }
-
-  return posts.map((post: PostType) => ({
-    slug: [`ps-${post.id}`, `${post.slug}`],
-  }));
-}
+//   return posts.map((post: PostType) => ({
+//     slug: [`ps-${post.id}`, `${post.slug}`],
+//   }));
+// }

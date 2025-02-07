@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { isAuthenticated } from "./lib/auth";
+import useAuth from "./hooks/useAuth";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const isUserAuthenticated = await isAuthenticated();
+  const { isAuthenticated: isUserAuthenticated } = await useAuth();
 
   if (!isUserAuthenticated && request.nextUrl.pathname.startsWith("/posts")) {
     return NextResponse.rewrite(new URL("/not-authorized", request.url));

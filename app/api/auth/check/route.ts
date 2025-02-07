@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { isAuthenticated } from "@/lib/auth";
+import useAuth from "@/hooks/useAuth";
 
 export async function GET() {
-  const authenticated = await isAuthenticated();
-  return NextResponse.json({ authenticated });
+  const { isAuthenticated } = await useAuth();
+  return NextResponse.json({ isAuthenticated });
 }

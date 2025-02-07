@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
-import useAuth from "@/hooks/useAuth";
 import posts from "@/json/posts.json";
 
-export const revalidate = 0;
-
 export async function GET(request: Request) {
-  const { isAuthenticated: isUserAuthenticated } = await useAuth();
-
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
-    const isPublicRequest = request.headers.get("x-public-request") === "true";
-
-    if (!isPublicRequest) {
-      if (!isUserAuthenticated) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-      }
-    }
 
     if (id) {
       const post = posts.find(
@@ -30,7 +18,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(posts.filter((p) => p.status === "publish"));
   } catch (error) {
-    console.error("Error in /api/posts:", error);
+    console.error("Error in /api/posts/public:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

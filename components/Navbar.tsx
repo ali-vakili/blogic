@@ -33,7 +33,7 @@ const Navbar = () => {
         <div className="flex items-center">
           {isLoading ? (
             <LoadingSkeleton />
-          ) : data?.authenticated ? (
+          ) : data?.isAuthenticated ? (
             <button
               onClick={handleSignOut}
               className="text-gray-900 py-1 px-3 bg-red-200 rounded-lg hover:bg-red-300 transition-colors duration-300 ease-out"

@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 import { ArrowRight, CircleAlert } from "lucide-react";
 import { formatDate } from "@/utils";
 import { FetchError, PostType } from "@/types";
-import { fetchPost } from "@/lib/api/getPosts";
+import { fetchSinglePost } from "@/lib/api/getPosts";
 
 const PostDetail = ({ id }: { id: string }) => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const PostDetail = ({ id }: { id: string }) => {
     data: post,
     isLoading,
     error,
-  } = useQuery<PostType, FetchError>(["post", id], () => fetchPost(id), {
+  } = useQuery<PostType, FetchError>(["post", id], () => fetchSinglePost(id), {
     retry: (failureCount, error) => {
       if (error.status === 401) {
         return false;

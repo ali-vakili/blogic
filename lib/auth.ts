@@ -47,26 +47,6 @@ export async function setAuthCookie(userId: string) {
   });
 }
 
-export async function isAuthenticated(token?: string) {
-  if (token) {
-    const session = await decrypt(token);
-    return !!session?.userId;
-  }
-  const cookieValue = cookies().get("auth_token")?.value;
-  const session = await decrypt(cookieValue);
-  return !!session?.userId;
-}
-
-export async function verifySession() {
-  const cookieValue = cookies().get(cookie.name)?.value;
-  const session = await decrypt(cookieValue);
-  if (!session?.userId) {
-    redirect("/sign-in");
-  }
-
-  return { userId: session.userId };
-}
-
 export function removeAuthCookie() {
   cookies().delete(cookie.name);
   redirect("/sign-in");

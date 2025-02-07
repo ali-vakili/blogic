@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { setAuthCookie, removeAuthCookie, isAuthenticated } from "@/lib/auth";
+import { setAuthCookie, removeAuthCookie } from "@/lib/auth";
 
 const user = {
   id: "12",
@@ -54,11 +54,4 @@ export async function signIn(
 export async function signOut() {
   removeAuthCookie();
   redirect("/");
-}
-
-export async function checkAuth() {
-  const authenticated = await isAuthenticated();
-  if (!authenticated) {
-    redirect("/sign-in");
-  }
 }

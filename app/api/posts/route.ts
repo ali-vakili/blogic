@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import useAuth from "@/hooks/useAuth";
 import posts from "@/json/posts.json";
+import getServerSession from "@/lib/getServerSession";
 
 export const revalidate = 0;
 
 export async function GET(request: Request) {
-  const { isAuthenticated: isUserAuthenticated } = await useAuth();
+  const session = await getServerSession();
+  const isUserAuthenticated = !!session?.userId;
 
   try {
     const { searchParams } = new URL(request.url);

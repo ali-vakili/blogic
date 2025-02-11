@@ -1,30 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 import { signOut } from "@/app/sign-in/action";
-
-const fetchAuthStatus = async () => {
-  const response = await fetch("/api/auth/check");
-  if (!response.ok) {
-    throw new Error("Failed to fetch authentication status");
-  }
-  return response.json();
-};
+import { useAuth } from "@/context/AuthProvider";
 
 const LoadingSkeleton = () => (
   <div className="animate-pulse bg-gray-200 h-8 w-16 rounded-lg"></div>
 );
 
 const Navbar = () => {
-  const { data, isLoading, refetch } = useQuery(
-    ["authStatus"],
-    fetchAuthStatus
-  );
+  const { session, isLoading, getSession } = useAuth();
+  const isAuthenticated = session?.isAuthenticated ?? false;
 
   const handleSignOut = async () => {
     await signOut();
-    refetch();
+    getSession();
   };
 
   return (
@@ -33,7 +23,7 @@ const Navbar = () => {
         <div className="flex items-center">
           {isLoading ? (
             <LoadingSkeleton />
-          ) : data?.isAuthenticated ? (
+          ) : isAuthenticated ? (
             <button
               onClick={handleSignOut}
               className="text-gray-900 py-1 px-3 bg-red-200 rounded-lg hover:bg-red-300 transition-colors duration-300 ease-out"

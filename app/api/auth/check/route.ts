@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import useAuth from "@/hooks/useAuth";
+import getServerSession from "@/lib/getServerSession";
 
 export async function GET() {
-  const { isAuthenticated } = await useAuth();
+  const session = await getServerSession();
+  const isAuthenticated = !!session?.userId;
   return NextResponse.json({ isAuthenticated });
 }

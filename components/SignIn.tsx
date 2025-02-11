@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthProvider";
 import { FormState, signIn } from "../app/sign-in/action";
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 
@@ -20,9 +22,19 @@ function SubmitButton() {
 }
 
 export default function SignIn() {
+  const router = useRouter();
+  const { getSession } = useAuth();
+
   const initialState: FormState = { message: "" };
   const [state, formAction] = useFormState(signIn, initialState);
   const [showHidePass, setShowHidePass] = useState(false);
+
+  useEffect(() => {
+    if (state?.message === "success" && state?.redirect) {
+      getSession();
+      router.replace(state.redirect);
+    }
+  }, [state, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

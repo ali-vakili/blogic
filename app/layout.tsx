@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import Navbar from "@/components/Navbar";
 import TanStackProvider from "@/provider/TanStackProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 import { openGraphImages, twitterImages } from "./shared-metadata";
 
 import { Roboto } from "next/font/google";
@@ -121,10 +122,12 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${iranyekan.variable} ${iransans.variable}`}
       >
-        <TanStackProvider>
-          <Navbar />
-          {children}
-        </TanStackProvider>
+        <AuthProvider>
+          <TanStackProvider>
+            <Navbar />
+            {children}
+          </TanStackProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -11,6 +11,7 @@ const user = {
 
 export type FormState = {
   message: string;
+  redirect?: string;
   errors?: {
     username?: string;
     password?: string;
@@ -42,7 +43,7 @@ export async function signIn(
 
   if (username === user.username && password === user.password) {
     await setAuthCookie(user.id);
-    redirect(callbackUrl);
+    return { message: "success", redirect: callbackUrl };
   }
 
   return {

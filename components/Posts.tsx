@@ -1,7 +1,7 @@
 "use client";
 
 import PostList from "@/components/PostList";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { fetchPosts } from "@/lib/api/getPosts";
@@ -9,7 +9,6 @@ import { CircleAlert } from "lucide-react";
 import { FetchError, PostType } from "@/types";
 
 const Posts = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
 
   const {
@@ -22,9 +21,6 @@ const Posts = () => {
         return false;
       }
       return failureCount < 3;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["authStatus"]);
     },
     onError: (error) => {
       if (error.status === 401) {
